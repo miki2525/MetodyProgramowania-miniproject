@@ -29,8 +29,8 @@ public class DamageServiceTest {
         //when
         damageService.fromHellToHeaven(player);
         //then
-        assertThat(player.getHealth()).isNotEqualTo(0);
-        assertThat(player.getHealth()).isEqualTo(10000000);
+        assertThat(player.getHealth()).isNotEqualTo(10000000);
+        assertThat(player.getHealth()).isEqualTo(300);
     }
 
 
