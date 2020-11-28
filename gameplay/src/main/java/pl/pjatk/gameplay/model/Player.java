@@ -17,12 +17,13 @@ public class Player {
     public Player() {
     }
 
-    public Player(Long id, String nickname, int health, int attack) {
-        this.id = id;
+    public Player(String nickname, int health, int attack) {
         this.nickname = nickname;
         this.health = health;
         this.attack = attack;
     }
+
+
 
     public void setId(Long id) {
         this.id = id;
