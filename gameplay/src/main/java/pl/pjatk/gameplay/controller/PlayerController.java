@@ -1,6 +1,7 @@
 package pl.pjatk.gameplay.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.pjatk.gameplay.model.Player;
 import pl.pjatk.gameplay.service.PlayerService;
@@ -47,6 +48,11 @@ public class PlayerController {
     @PostMapping
     public ResponseEntity<Player> save (@RequestBody Player player){
         return ResponseEntity.ok(playerService.save(player));
+    }
+    @PostMapping("/hello")
+    public String greetingSubmit(@ModelAttribute Player player, Model model) {
+        model.addAttribute("player", player);
+        return "result";
     }
 
     @DeleteMapping("/{id}")

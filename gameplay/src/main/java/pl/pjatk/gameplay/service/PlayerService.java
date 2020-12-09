@@ -64,7 +64,6 @@ public class PlayerService {
     public Player attackPlayer(Long attackerID, Long defenderID){
         Player attacker = findById(attackerID).get();
         Player defender = findById(defenderID).get();
-
         defender = damageService.attackPlayer(attacker, defender);
 
         return update(defender);
