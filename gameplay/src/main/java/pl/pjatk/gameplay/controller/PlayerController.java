@@ -1,8 +1,10 @@
 package pl.pjatk.gameplay.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import pl.pjatk.gameplay.model.Player;
 import pl.pjatk.gameplay.service.PlayerService;
 
@@ -24,6 +26,27 @@ public class PlayerController {
     public ResponseEntity<List<Player>> findAll() {
         return ResponseEntity.ok(playerService.findAll());
     }
+    
+    @GetMapping("/test")
+        public ModelAndView showForm (Model model) {
+
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("test");
+            model.addAttribute("player", new Player());
+            return modelAndView;
+    }
+
+    @PostMapping("/test")
+    public ModelAndView sendForm(@ModelAttribute ("player") Player player, Model model){
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("result");
+        model.addAttribute("player", player);
+        ////tu jakas walidacja by sie przydala
+        playerService.save(player);
+        return modelAndView;
+    }
+
 
     @GetMapping("/hello")
     public ResponseEntity<String> hello() {
@@ -48,11 +71,6 @@ public class PlayerController {
     @PostMapping
     public ResponseEntity<Player> save (@RequestBody Player player){
         return ResponseEntity.ok(playerService.save(player));
-    }
-    @PostMapping("/hello")
-    public String greetingSubmit(@ModelAttribute Player player, Model model) {
-        model.addAttribute("player", player);
-        return "result";
     }
 
     @DeleteMapping("/{id}")
