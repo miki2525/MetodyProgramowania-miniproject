@@ -22,7 +22,7 @@ public class PlayerService {
 
     }
 
-        public List<Player> findAll() {
+    public List<Player> findAll() {
             return playerRepository.findAll();
 
             /*List<Player> playerList = new ArrayList<>();

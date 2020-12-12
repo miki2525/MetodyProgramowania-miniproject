@@ -23,6 +23,12 @@ public class Player {
         this.attack = attack;
     }
 
+    public Player(Long id, String nickname, int health, int attack) {
+        this.id = id;
+        this.nickname = nickname;
+        this.health = health;
+        this.attack = attack;
+    }
 
 
     public void setId(Long id) {
