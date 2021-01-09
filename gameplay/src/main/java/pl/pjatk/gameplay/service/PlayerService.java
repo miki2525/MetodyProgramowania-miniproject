@@ -36,8 +36,12 @@ public class PlayerService {
             return playerList;*/
         }
 
-        public Optional<Player> findById(Long playerID){
-            return playerRepository.findById(playerID);
+        public Optional<Player> findById(Long playerID) {
+            if (playerID == 10L) {
+                throw new RuntimeException();
+            } else {
+                return playerRepository.findById(playerID);
+            }
         }
 
         public Player save(Player player){
@@ -67,6 +71,10 @@ public class PlayerService {
         defender = damageService.attackPlayer(attacker, defender);
 
         return update(defender);
+    }
+
+    public void deleteAll() {
+        playerRepository.deleteAll();
     }
 
     //// utworzyc metode ktora przejmie atak z controllera  i przekaze nam  do DamageService.

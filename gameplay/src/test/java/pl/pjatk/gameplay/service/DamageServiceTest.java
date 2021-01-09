@@ -2,13 +2,33 @@ package pl.pjatk.gameplay.service;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import pl.pjatk.gameplay.model.Player;
+import pl.pjatk.gameplay.repository.PlayerRepository;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class DamageServiceTest {
 
     private DamageService damageService = new DamageService();
+
+    @Mock
+    DamageService damageServiceMock;
+
+    @Mock
+    PlayerRepository playerRepository;
+
+    @InjectMocks
+    PlayerService playerService;
+
 
     @Test
     void shouldIncreaseAttack(){
@@ -55,4 +75,19 @@ public class DamageServiceTest {
         assertThat(player.getNickname().endsWith("SPY")).isEqualTo(true);
         assertThat(player.getNickname().endsWith("spy")).isNotEqualTo(true);
     }
+
+    @Test
+    void shouldAttackPlayer() {
+        Player player1 = new Player(1L, "test 1", 1000, 50);
+        Player player2 = new Player(2L, "test 2", 1000, 50);
+        when(playerRepository.findById(1L)).thenReturn(Optional.of(player1));
+        when(playerRepository.findById(2L)).thenReturn(Optional.of(player2));
+        when(playerRepository.save(player2)).thenReturn(player2);
+        when(damageServiceMock.attackPlayer(any(), any())).thenCallRealMethod();
+        ////thenCallrealmethod -
+        Player attack1 = playerService.attackPlayer(1L, 2L);
+        assertThat(attack1.getHealth()).isEqualTo(950);
+    }
+
+
 }
