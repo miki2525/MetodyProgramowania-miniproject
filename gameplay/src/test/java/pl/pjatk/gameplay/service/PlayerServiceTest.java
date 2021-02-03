@@ -65,7 +65,7 @@ class PlayerServiceTest {
      @Test
      void shouldSave(){
          //given
-         Player playerTest = new Player("Ktos", 100, 200);
+         Player playerTest = new Player("Ktos", 100, 200, Arrays.asList());
          when(playerRepository.save(playerTest)).thenReturn(new Player(25L,"Ktos", 100, 200));
          //when
          Player save = playerServiceTest.save(playerTest);

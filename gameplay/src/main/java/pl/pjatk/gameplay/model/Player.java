@@ -1,8 +1,8 @@
 package pl.pjatk.gameplay.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Player {
@@ -14,13 +14,17 @@ public class Player {
     private int health;
     private int attack;
 
+    @OneToMany (cascade = CascadeType.ALL, mappedBy = "player")
+    private List<Message> messageList = new ArrayList<>();
+
     public Player() {
     }
 
-    public Player(String nickname, int health, int attack) {
+    public Player(String nickname, int health, int attack, List<Message> messageList) {
         this.nickname = nickname;
         this.health = health;
         this.attack = attack;
+        this.messageList = messageList;
     }
 
     public Player(Long id, String nickname, int health, int attack) {
@@ -61,6 +65,14 @@ public class Player {
 
     public int getAttack() {
         return attack;
+    }
+
+    public List<Message> getMessageList() {
+        return messageList;
+    }
+
+    public void setMessageList(List<Message> messageList) {
+        this.messageList = messageList;
     }
 
     @Override

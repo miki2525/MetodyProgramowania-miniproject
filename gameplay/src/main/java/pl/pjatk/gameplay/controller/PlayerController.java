@@ -68,10 +68,12 @@ public class PlayerController {
         return ResponseEntity.ok(playerService.attackPlayer(attackerID, defenderID));
     }
 
+
     @PostMapping
     public ResponseEntity<Player> save (@RequestBody Player player){
         return ResponseEntity.ok(playerService.save(player));
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id){

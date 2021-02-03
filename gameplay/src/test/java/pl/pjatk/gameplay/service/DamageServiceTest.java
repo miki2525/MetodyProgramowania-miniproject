@@ -9,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pl.pjatk.gameplay.model.Player;
 import pl.pjatk.gameplay.repository.PlayerRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,7 +34,7 @@ public class DamageServiceTest {
     @Test
     void shouldIncreaseAttack(){
         //given
-        Player player = new Player ("Gondor", 200, 100);
+        Player player = new Player ("Gondor", 200, 100, List.of());
         //when
         damageService.increaseAttack(player);
         //then
@@ -45,7 +46,7 @@ public class DamageServiceTest {
     @Test
     void shouldFromHellToHeaven() {
         //given
-        Player player = new Player("Majek", 300, 250);
+        Player player = new Player("Majek", 300, 250, List.of());
         //when
         damageService.fromHellToHeaven(player);
         //then
@@ -57,7 +58,7 @@ public class DamageServiceTest {
     @Test
     void shouldReduceAttack() {
         //given
-        Player player = new Player("Donatello", 45, 60);
+        Player player = new Player("Donatello", 45, 60, List.of());
         //when
         damageService.reduceAttack(player);
         //then
@@ -68,7 +69,7 @@ public class DamageServiceTest {
     @Test
     void turnOnSpyMode() {
         //given
-        Player player = new Player("Szpieg", 0, 0);
+        Player player = new Player("Szpieg", 0, 0, List.of());
         //when
         damageService.turnOnSpyMode(player);
         //then

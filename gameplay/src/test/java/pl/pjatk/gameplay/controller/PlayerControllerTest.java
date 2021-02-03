@@ -1,7 +1,6 @@
 package pl.pjatk.gameplay.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,6 +11,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import pl.pjatk.gameplay.model.Player;
 import pl.pjatk.gameplay.service.PlayerService;
 
+
+import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -52,15 +53,17 @@ class PlayerControllerTest {
 
     }
 
+    @Test
     void shouldMatchHandlerforID() throws Exception {
-        Player player = playerService.save(new Player("nickname", 200, 100));
+        ObjectMapper objectMapper = new ObjectMapper();
+        Player player = playerService.save(new Player("nickname", 200, 100, List.of()));
         mockMvc.perform(get("/1")).
                 andDo(print()).
                 andExpect(status().isOk()).
-                andExpect(content().string(equalTo(player.toString())));//jsona wstawic
+                andExpect(content().json(objectMapper.writeValueAsString(player)));
     }
 
-
+    @Test
     void shouldMatchHandlerfornotID() throws Exception {
         mockMvc.perform(get("/1")).
                 andDo(print()).
